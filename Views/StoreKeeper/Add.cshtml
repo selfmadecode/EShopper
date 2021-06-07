@@ -1,0 +1,29 @@
+﻿@model Product
+
+
+<h1>Add product</h1>
+
+<form asp-action="Add" asp-controller="StoreKeeper" method="post">
+
+    <div class="form-group">
+        <label asp-for="Name">Name</label>
+        <input asp-for="Name" class="form-control" placeholder="Enter Product Name">
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Quantity">Quantity</label>
+        <input asp-for="Quantity" class="form-control" placeholder="Quantity">
+        <span asp-validation-for="Quantity" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Amount">Amount</label>
+        <input asp-for="Amount" class="form-control" placeholder="Amount">
+        <span asp-validation-for="Amount" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="ExpiringDate">Expiry Date</label>
+        <input asp-for="ExpiringDate" class="form-control" placeholder="Expriry Date">
+        <span asp-validation-for="ExpiringDate" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Add Product</button>
+</form>
