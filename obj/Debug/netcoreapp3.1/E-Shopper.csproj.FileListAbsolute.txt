@@ -60,7 +60,6 @@ C:\Users\SelfMade\source\repos\E-Shopper\bin\Debug\netcoreapp3.1\runtimes\win-x8
 C:\Users\SelfMade\source\repos\E-Shopper\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp2.0\System.Runtime.Caching.dll
 C:\Users\SelfMade\source\repos\E-Shopper\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.0\System.Runtime.Caching.dll
 C:\Users\SelfMade\source\repos\E-Shopper\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
-C:\Users\SelfMade\source\repos\E-Shopper\obj\Debug\netcoreapp3.1\E-Shopper.csproj.AssemblyReference.cache
 C:\Users\SelfMade\source\repos\E-Shopper\obj\Debug\netcoreapp3.1\E-Shopper.AssemblyInfoInputs.cache
 C:\Users\SelfMade\source\repos\E-Shopper\obj\Debug\netcoreapp3.1\E-Shopper.AssemblyInfo.cs
 C:\Users\SelfMade\source\repos\E-Shopper\obj\Debug\netcoreapp3.1\E-Shopper.csproj.CoreCompileInputs.cache
@@ -74,7 +73,6 @@ C:\Users\SelfMade\source\repos\E-Shopper\obj\Debug\netcoreapp3.1\scopedcss\bundl
 C:\Users\SelfMade\source\repos\E-Shopper\obj\Debug\netcoreapp3.1\E-Shopper.TagHelpers.input.cache
 C:\Users\SelfMade\source\repos\E-Shopper\obj\Debug\netcoreapp3.1\E-Shopper.TagHelpers.output.cache
 C:\Users\SelfMade\source\repos\E-Shopper\obj\Debug\netcoreapp3.1\E-Shopper.RazorCoreGenerate.cache
-C:\Users\SelfMade\source\repos\E-Shopper\obj\Debug\netcoreapp3.1\Razor\Areas\Identity\Pages\_ViewStart.cshtml.g.cs
 C:\Users\SelfMade\source\repos\E-Shopper\obj\Debug\netcoreapp3.1\Razor\Views\Home\Index.cshtml.g.cs
 C:\Users\SelfMade\source\repos\E-Shopper\obj\Debug\netcoreapp3.1\Razor\Views\Home\Privacy.cshtml.g.cs
 C:\Users\SelfMade\source\repos\E-Shopper\obj\Debug\netcoreapp3.1\Razor\Views\Shared\Error.cshtml.g.cs
@@ -164,7 +162,6 @@ C:\Users\SelfMade\source\repos\E-Shopper\bin\Debug\netcoreapp3.1\ru\Microsoft.Co
 C:\Users\SelfMade\source\repos\E-Shopper\bin\Debug\netcoreapp3.1\tr\Microsoft.CodeAnalysis.Workspaces.resources.dll
 C:\Users\SelfMade\source\repos\E-Shopper\bin\Debug\netcoreapp3.1\zh-Hans\Microsoft.CodeAnalysis.Workspaces.resources.dll
 C:\Users\SelfMade\source\repos\E-Shopper\bin\Debug\netcoreapp3.1\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
-C:\Users\SelfMade\source\repos\E-Shopper\obj\Debug\netcoreapp3.1\Razor\Areas\Identity\Pages\Account\Register.cshtml.g.cs
-C:\Users\SelfMade\source\repos\E-Shopper\obj\Debug\netcoreapp3.1\Razor\Areas\Identity\Pages\Account\_ViewImports.cshtml.g.cs
-C:\Users\SelfMade\source\repos\E-Shopper\obj\Debug\netcoreapp3.1\Razor\Areas\Identity\Pages\_ValidationScriptsPartial.cshtml.g.cs
-C:\Users\SelfMade\source\repos\E-Shopper\obj\Debug\netcoreapp3.1\Razor\Areas\Identity\Pages\_ViewImports.cshtml.g.cs
+C:\Users\SelfMade\source\repos\E-Shopper\obj\Debug\netcoreapp3.1\Razor\Views\Account\Login.cshtml.g.cs
+C:\Users\SelfMade\source\repos\E-Shopper\obj\Debug\netcoreapp3.1\Razor\Views\Account\Register.cshtml.g.cs
+C:\Users\SelfMade\source\repos\E-Shopper\obj\Debug\netcoreapp3.1\E-Shopper.csproj.AssemblyReference.cache

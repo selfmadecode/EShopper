@@ -27,7 +27,7 @@ namespace E_Shopper.Models.Services.Repository
 
         public async Task<IEnumerable<Product>> AllProduct()
         {
-            return await _dbContext.Products.ToListAsync();
+            return await _dbContext.Products.Where(p => p.ProductStatus == null).ToListAsync();
         }
 
         public async Task StoreKeeperAssignProductToSupervisor(List<Product> products,

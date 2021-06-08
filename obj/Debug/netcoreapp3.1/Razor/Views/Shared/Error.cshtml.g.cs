@@ -28,20 +28,27 @@ using E_Shopper.Models;
 #nullable disable
 #nullable restore
 #line 3 "C:\Users\SelfMade\source\repos\E-Shopper\Views\_ViewImports.cshtml"
-using E_Shopper.Models.Entities;
+using E_Shopper.Models.ViewModel;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
 #line 4 "C:\Users\SelfMade\source\repos\E-Shopper\Views\_ViewImports.cshtml"
+using E_Shopper.Models.Entities;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 5 "C:\Users\SelfMade\source\repos\E-Shopper\Views\_ViewImports.cshtml"
 using E_Shopper.Data;
 
 #line default
 #line hidden
 #nullable disable
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"d6a5625cc8fb4476f348b0fe9041c550465d8bf9", @"/Views/Shared/Error.cshtml")]
-    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"ac705aebf9875baa69019bac6ea7178bc1929365", @"/Views/_ViewImports.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"8ab3b4247b828583a8e6c21f4cead2828a543bfe", @"/Views/_ViewImports.cshtml")]
     public class Views_Shared_Error : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<ErrorViewModel>
     {
         #pragma warning disable 1998

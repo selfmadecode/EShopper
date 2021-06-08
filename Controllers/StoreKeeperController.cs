@@ -37,5 +37,10 @@ namespace E_Shopper.Controllers
 
             return View();
         }
+        public async Task<IActionResult> AssignProductToSupervisor(List<Product> products,
+            string supervisorId)
+        {
+            return RedirectToAction("Index");
+        }
     }
 }

@@ -22,7 +22,7 @@ namespace E_Shopper.Models.Entities
 
         public DateTime? ExpiringDate { get; set; }
 
-        public ProductStatus ProductStatus { get; set; }
+        public ProductStatus? ProductStatus { get; set; }
         public string StoreKeeperId { get; set; }
         public string SupervisorId { get; set; }
         public string ProductManagerId { get; set; }
