@@ -25,18 +25,20 @@ namespace E_Shopper.Models.Services.Repository
             await _dbContext.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<Product>> AllProduct()
+        public async Task<IList<Product>> AllProduct()
         {
             return await _dbContext.Products.Where(p => p.ProductStatus == null).ToListAsync();
         }
 
-        public async Task StoreKeeperAssignProductToSupervisor(List<Product> products,
+        public async Task<bool> StoreKeeperAssignProductToSupervisor(List<Product> products,
             string storeKeeperId, string supervisorId)
         {
             if (products is null)
             {
                 // Handle this
-                throw new ArgumentNullException(nameof(products));
+                //throw new ArgumentNullException(nameof(products));
+
+                return false;
             }
 
             // Remove product from product page
@@ -46,10 +48,20 @@ namespace E_Shopper.Models.Services.Repository
 
             var supervisor = _dbContext.Supervisors.FirstOrDefault(s => s.UserId == supervisorId);
 
+
+            foreach (var product in products)
+            {
+                product.StoreKeeperId = storeKeeperId;
+                product.SupervisorId = supervisorId;
+            };
+
             supervisor.Products = new List<Product>();
             supervisor.Products.AddRange(products);
 
+            _dbContext.UpdateRange(products);
             await _dbContext.SaveChangesAsync();
+
+            return true;
         }
 
         public async Task<IEnumerable<Product>> GetProductsAssignedToSupervisor(string userId,

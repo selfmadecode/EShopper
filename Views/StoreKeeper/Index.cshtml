@@ -1,32 +1,80 @@
-﻿@model IEnumerable<Product>
+﻿@model ProductAndRolesViewModel
 
 <h1>All Products</h1>
 
-<table>
-    <thead>
-        <tr>
-            <th>Name</th>
-            <th>Amount</th>
-            <th>Quantity</th>
-        </tr>
-    </thead>
-    <tbody>
-        @if (!Model.Any())
-        {
+<form class="form-group" asp-action="AssignProductToSupervisor" method="post">
 
-        }
-        else
-        {
-            foreach (var product in Model)
-            {
+    <div asp-validation-summary="All" class="text-danger"></div>
+
+
+    @if (!Model.Products.Any())
+    {
+        <h1>No Products</h1>
+    }
+    else
+    {
+
+        <table class="table">
+            <thead>
                 <tr>
-                    <td>@product.Name</td>
-                    <td>@product.Amount</td>
-                    <td>@product.Quantity</td>
+                    <th>Name</th>
+                    <th>Amount</th>
+                    <th>Quantity</th>
                 </tr>
-            }
-        }
-    </tbody>
-</table>
+            </thead>
 
-<button>Assign to Suppervisor</button>
+
+            <tbody>
+
+                @{ 
+                    for(int i = 0; i < Model.Products.Count ; i++)
+                    {
+                         <tr>
+                             <td>
+                                 <input asp-for="@Model.ProductsToAssigns[i].Id " type="hidden" />
+                                     @Model.Products[i].Id
+                             </td>
+                             <td>
+                                 <input asp-for="@Model.ProductsToAssigns[i].Name" type="hidden" />
+                                        @Model.Products[i].Name
+                             </td>
+                             <td>
+                                 <input asp-for="@Model.ProductsToAssigns[i].Quantity" type="hidden" />
+                                        @Model.Products[i].Quantity
+                             </td>
+                             <td>
+                                 <input asp-for="@Model.ProductsToAssigns[i].ExpiringDate " type="hidden" />
+                                        @Model.Products[i].ExpiringDate
+                             </td>
+                         </tr>
+                    }
+                }
+
+                @*@foreach (var product in Model.Products)
+                {
+                    <tr>
+                        
+                        <td>@product.Amount</td>
+                        <td>@product.Quantity</td>
+                    </tr>
+
+                }*@
+            </tbody>
+        </table>
+    }
+
+    <h1>Supervisors</h1>
+
+    <div class="form-group">
+        <label>Select Supervisor</label>
+        @Html.DropDownListFor(s => s.SendToRole,
+            new SelectList(Model.Supervisors, "Id", "FirstName"), "Select Supervisor", new {@class = "form-control col-md-6" })
+        <span asp-validation-for="SendToRole" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

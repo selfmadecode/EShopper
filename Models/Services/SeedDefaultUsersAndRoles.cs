@@ -26,6 +26,8 @@ namespace E_Shopper.Models.Services
             RoleManager<IdentityRole> roleManager =
                 serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
 
+            var _dbContext = serviceProvider.GetRequiredService<ApplicationDbContext>();
+
             string[] roleNames = { "StoreKeeper",
                 "Supervisor",
                 "ProductManager" };
@@ -45,68 +47,76 @@ namespace E_Shopper.Models.Services
             }
 
 
-            ApplicationUser storeKeeper = new ApplicationUser
+            if (await userManager.FindByNameAsync("storekeeper@eshopper.com") == null)
             {
-                Email = "storekeeper@eshopper.com",
-                EmailConfirmed = true,
-                UserName = "storekeeper@eshopper.com",
-                FirstName = "Anyanwu",
-                LastName = "Raphael"
-            };
+                ApplicationUser storeKeeper = new ApplicationUser
+                {
+                    Email = "storekeeper@eshopper.com",
+                    EmailConfirmed = true,
+                    UserName = "storekeeper@eshopper.com",
+                    FirstName = "Anyanwu",
+                    LastName = "Raphael"
+                };
 
-            ApplicationUser storeSupervisor = new ApplicationUser
-            {
-                Email = "storesupervisor@eshopper.com",
-                EmailConfirmed = true,
-                UserName = "storesupervisor@eshopper.com",
-                FirstName = "Raphael",
-                LastName = "Raphael"
-            };
-            ApplicationUser storeManager = new ApplicationUser
-            {
-                Email = "storemanager@eshopper.com",
-                EmailConfirmed = true,
-                UserName = "storemanager@eshopper.com",
-                FirstName = "Raphael",
-                LastName = "Raphael"
-            };
-
-
-            IdentityResult createStoreKeeper = await userManager.CreateAsync(
+                IdentityResult createStoreKeeper = await userManager.CreateAsync(
                 storeKeeper, "StoreKeeper1@eshopper");
 
-    
-
-            if (createStoreKeeper.Succeeded)
-            {
-               await userManager.AddToRoleAsync(storeKeeper, "StoreKeeper");
+                if (createStoreKeeper.Succeeded)
+                {
+                    await userManager.AddToRoleAsync(storeKeeper, "StoreKeeper");
+                }
             }
 
-            var createStoreSupervisor = await userManager.CreateAsync(
-               storeSupervisor, "StoreSupervisor1@eshopper");
-
-            
-            if (createStoreSupervisor.Succeeded)
+            if (await userManager.FindByNameAsync("storesupervisor@eshopper.com") == null)
             {
-                await userManager.AddToRoleAsync(storeSupervisor, "Supervisor");
+                ApplicationUser storeSupervisor = new ApplicationUser
+                {
+                    Email = "storesupervisor@eshopper.com",
+                    EmailConfirmed = true,
+                    UserName = "storesupervisor@eshopper.com",
+                    FirstName = "Raphael",
+                    LastName = "Raphael"
+                };
+
+                var createStoreSupervisor = await userManager.CreateAsync(
+              storeSupervisor, "StoreSupervisor1@eshopper");
+
+
+                if (createStoreSupervisor.Succeeded)
+                {
+                    await userManager.AddToRoleAsync(storeSupervisor, "Supervisor");
+                }
             }
 
-            var createStoreManager = await userManager.CreateAsync(storeManager,
-                "StoreManager1@eshopper");
-            if (createStoreManager.Succeeded)
+            if (await userManager.FindByNameAsync("storemanager@eshopper.com") == null)
             {
-                await userManager.AddToRoleAsync(storeManager, "ProductManager");
+                ApplicationUser storeManager = new ApplicationUser
+                {
+                    Email = "storemanager@eshopper.com",
+                    EmailConfirmed = true,
+                    UserName = "storemanager@eshopper.com",
+                    FirstName = "Raphael",
+                    LastName = "Raphael"
+                };
+
+                var createStoreManager = await userManager.CreateAsync(storeManager,
+                    "StoreManager1@eshopper");
+                if (createStoreManager.Succeeded)
+                {
+                    await userManager.AddToRoleAsync(storeManager, "ProductManager");
+                }
             }
 
-
-            await SeedProduct(serviceProvider);
+            await SeedProduct(_dbContext);
         }
 
-        private static async Task SeedProduct(IServiceProvider serviceProvider)
+        private static async Task SeedProduct(ApplicationDbContext context)
         {
-            var db = serviceProvider.GetRequiredService<ApplicationDbContext>();
+            var _dbContext = context;
 
-            var products = new List<Product>
+            if (!_dbContext.Products.Any())
+            {
+                var products = new List<Product>
             {
                 new Product
                 {
@@ -128,8 +138,9 @@ namespace E_Shopper.Models.Services
                 }
             };
 
-            db.Products.AddRange(products);
-            await db.SaveChangesAsync();
+                _dbContext.Products.AddRange(products);
+                await _dbContext.SaveChangesAsync();
+            }
         }
     }
 }
