@@ -1,5 +1,6 @@
 ﻿using E_Shopper.Data;
 using E_Shopper.Models.Entities;
+using E_Shopper.Models.Enums;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
@@ -11,26 +12,15 @@ namespace E_Shopper.Models.ViewModel
 {
     public class ProductAndRolesViewModel
     {
-
-        //public IEnumerable<Product> AssignedProduct { get; set; }
         public string SendToRole { get; set; }
+
+        public Decision Decision { get; set; }
 
         public IList<Product> Products { get; set; }
         public IEnumerable<ApplicationUser> Supervisors { get; set; }
+        public IEnumerable<ApplicationUser> StoreKeeper { get; set; }
+        public IEnumerable<ApplicationUser> ProductManager { get; set; }
 
         public List<Product> ProductsToAssigns { get; set; }
-    }
-
-    public class ProductsToAssign
-    {
-        public int Id { get; set; }
-
-        public string Name { get; set; }
-
-        public int Quantity { get; set; }
-
-        public double Amount { get; set; }
-
-        public DateTime? ExpiringDate { get; set; }
     }
 }

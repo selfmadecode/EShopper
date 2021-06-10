@@ -65,6 +65,13 @@ namespace E_Shopper.Models.Services
                 {
                     await userManager.AddToRoleAsync(storeKeeper, "StoreKeeper");
                 }
+
+                var newStoreKeeper = new StoreKeeper
+                {
+                    UserId = storeKeeper.Id                    
+                };
+
+                _dbContext.StoreKeepers.Add(newStoreKeeper);
             }
 
             if (await userManager.FindByNameAsync("storesupervisor@eshopper.com") == null)
@@ -79,18 +86,25 @@ namespace E_Shopper.Models.Services
                 };
 
                 var createStoreSupervisor = await userManager.CreateAsync(
-              storeSupervisor, "StoreSupervisor1@eshopper");
+                    storeSupervisor, "StoreSupervisor1@eshopper");
 
 
                 if (createStoreSupervisor.Succeeded)
                 {
                     await userManager.AddToRoleAsync(storeSupervisor, "Supervisor");
                 }
+
+                var newSupervisor = new Supervisor
+                {
+                    UserId = storeSupervisor.Id
+                };
+
+                _dbContext.Supervisors.Add(newSupervisor);
             }
 
             if (await userManager.FindByNameAsync("storemanager@eshopper.com") == null)
             {
-                ApplicationUser storeManager = new ApplicationUser
+                ApplicationUser productManager = new ApplicationUser
                 {
                     Email = "storemanager@eshopper.com",
                     EmailConfirmed = true,
@@ -99,15 +113,25 @@ namespace E_Shopper.Models.Services
                     LastName = "Raphael"
                 };
 
-                var createStoreManager = await userManager.CreateAsync(storeManager,
+                var createStoreManager = await userManager.CreateAsync(productManager,
                     "StoreManager1@eshopper");
                 if (createStoreManager.Succeeded)
                 {
-                    await userManager.AddToRoleAsync(storeManager, "ProductManager");
+                    await userManager.AddToRoleAsync(productManager, "ProductManager");
                 }
+
+
+                var newProductManager = new ProductManager
+                {
+                    UserId = productManager.Id
+                };
+
+                _dbContext.ProductManagers.Add(newProductManager);
             }
 
             await SeedProduct(_dbContext);
+
+            _dbContext.SaveChanges();
         }
 
         private static async Task SeedProduct(ApplicationDbContext context)

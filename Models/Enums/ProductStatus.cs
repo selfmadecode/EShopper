@@ -7,6 +7,7 @@ namespace E_Shopper.Models.Enums
 {
     public enum ProductStatus
     {
+        ProductAssignedToSupervisor,
         SuppervisorApproved,
         SuppervisorDisapproved,
         ProductManagerApproved,

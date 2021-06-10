@@ -17,9 +17,11 @@
         <table class="table">
             <thead>
                 <tr>
+                    <th>Id</th>
                     <th>Name</th>
-                    <th>Amount</th>
                     <th>Quantity</th>
+                    <th>Amount</th>
+                    <th>Date</th>
                 </tr>
             </thead>
 
@@ -29,24 +31,28 @@
                 @{ 
                     for(int i = 0; i < Model.Products.Count ; i++)
                     {
-                         <tr>
-                             <td>
-                                 <input asp-for="@Model.ProductsToAssigns[i].Id " type="hidden" />
-                                     @Model.Products[i].Id
-                             </td>
-                             <td>
-                                 <input asp-for="@Model.ProductsToAssigns[i].Name" type="hidden" />
+                                <tr>
+                                    <td>
+                                        <input asp-for="@Model.ProductsToAssigns[i].Id " type="hidden" value=" @Model.Products[i].Id" />
+                                        @Model.Products[i].Id
+                                    </td>
+                                    <td>
+                                        <input asp-for="@Model.ProductsToAssigns[i].Name" type="hidden" value="@Model.Products[i].Name" />
                                         @Model.Products[i].Name
-                             </td>
-                             <td>
-                                 <input asp-for="@Model.ProductsToAssigns[i].Quantity" type="hidden" />
+                                    </td>
+                                    <td>
+                                        <input asp-for="@Model.ProductsToAssigns[i].Quantity" type="hidden" value="@Model.Products[i].Quantity" />
                                         @Model.Products[i].Quantity
-                             </td>
-                             <td>
-                                 <input asp-for="@Model.ProductsToAssigns[i].ExpiringDate " type="hidden" />
+                                    </td>
+                                    <td>
+                                        <input asp-for="@Model.ProductsToAssigns[i].Amount" type="hidden" value="@Model.Products[i].Amount" />
+                                        @Model.Products[i].Amount
+                                    </td>
+                                    <td>
+                                        <input asp-for="@Model.ProductsToAssigns[i].ExpiringDate " type="hidden" value="@Model.Products[i].ExpiringDate" />
                                         @Model.Products[i].ExpiringDate
-                             </td>
-                         </tr>
+                                    </td>
+                                </tr>
                     }
                 }
 

@@ -93,5 +93,19 @@ namespace E_Shopper.Controllers
 
             return View(registerViewModel);
         }
+
+        [HttpPost]
+        public async Task<IActionResult> OnPost(string returnUrl = null)
+        {
+            await _signInManager.SignOutAsync();
+            if (returnUrl != null)
+            {
+                return LocalRedirect(returnUrl);
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
+        }
     }
 }

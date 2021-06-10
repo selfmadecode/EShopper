@@ -53,6 +53,7 @@ namespace E_Shopper.Models.Services.Repository
             {
                 product.StoreKeeperId = storeKeeperId;
                 product.SupervisorId = supervisorId;
+                product.ProductStatus = ProductStatus.ProductAssignedToSupervisor;
             };
 
             supervisor.Products = new List<Product>();
@@ -64,36 +65,37 @@ namespace E_Shopper.Models.Services.Repository
             return true;
         }
 
-        public async Task<IEnumerable<Product>> GetProductsAssignedToSupervisor(string userId,
+        public async Task<IList<Product>> GetProductsAssignedToSupervisor(
             string supervisorId)
         {
-            var supervisor = _dbContext.Supervisors.FirstOrDefault(s => s.UserId == userId);
+            //var supervisor = _dbContext.Supervisors.FirstOrDefault(s => s.UserId == userId);
             return await _dbContext.Products.Where(s => s.SupervisorId == supervisorId).ToListAsync();
         }
 
-        public async Task SupervisorProcessProduct(List<Product> products, ProductStatus status,
+        public async Task SupervisorProcessProduct(List<Product> products, Decision status,
             string projectManagerId, string storeKeeperId)
         {
-            var projectManager = await _dbContext.ProductManagers
-                .FirstOrDefaultAsync(p => p.UserId == projectManagerId);
-    
             switch (status)
             {
-                case ProductStatus.SuppervisorApproved:
+                case Decision.Accept:
+                    var projectManager = await _dbContext.ProductManagers
+                        .FirstOrDefaultAsync(p => p.UserId == projectManagerId);
+
                     foreach (var product in products)
                     {
-                        product.ProductStatus = status;
+                        product.ProductStatus = ProductStatus.SuppervisorApproved;
                     }
+
                     //Assign to ProjectManager
                     projectManager.Products = new List<Product>();
                     projectManager.Products.AddRange(products);
-                    // remove the product
                     break;
 
-                case ProductStatus.SuppervisorDisapproved:
+
+                case Decision.Reject:
                     foreach (var product in products)
                     {
-                        product.ProductStatus = status;
+                        product.ProductStatus = ProductStatus.SuppervisorDisapproved;
                     }
                     var storeKeeper = await _dbContext.StoreKeepers
                        .FirstOrDefaultAsync(s => s.UserId == storeKeeperId);
@@ -101,10 +103,10 @@ namespace E_Shopper.Models.Services.Repository
                     //Assign back to storeKeeper
                     storeKeeper.Products = new List<Product>();
                     storeKeeper.Products.AddRange(products);
-                    // remove the product
 
                     break;
             }
+            _dbContext.UpdateRange(products);
             await _dbContext.SaveChangesAsync();
         }
 

@@ -1,0 +1,92 @@
+﻿@model ProductAndRolesViewModel
+
+<h1>All Products</h1>
+
+<form class="form-group" asp-action="ProcessProduct" method="post">
+
+    <div asp-validation-summary="All" class="text-danger"></div>
+
+    @if (!Model.Products.Any())
+    {
+        <h1>No Products Assigned to you</h1>
+    }
+    else
+    {
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Quantity</th>
+                    <th>Amount</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+
+
+            <tbody>
+
+                @{
+                    for (int i = 0; i < Model.Products.Count; i++)
+                    {
+                        <tr>
+                            <td>
+                                <input asp-for="@Model.ProductsToAssigns[i].Id " type="hidden" value=" @Model.Products[i].Id" />
+                                @Model.Products[i].Id
+                            </td>
+                            <td>
+                                <input asp-for="@Model.ProductsToAssigns[i].Name" type="hidden" value="@Model.Products[i].Name" />
+                                @Model.Products[i].Name
+                            </td>
+                            <td>
+                                <input asp-for="@Model.ProductsToAssigns[i].Quantity" type="hidden" value="@Model.Products[i].Quantity" />
+                                @Model.Products[i].Quantity
+                            </td>
+                            <td>
+                                <input asp-for="@Model.ProductsToAssigns[i].Amount" type="hidden" value="@Model.Products[i].Amount" />
+                                @Model.Products[i].Amount
+                            </td>
+                            <td>
+                                <input asp-for="@Model.ProductsToAssigns[i].ExpiringDate " type="hidden" value="@Model.Products[i].ExpiringDate" />
+                                @Model.Products[i].ExpiringDate
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    }
+
+<div>
+
+    <div>
+        <select asp-for="@Model.Decision" asp-items="Html.GetEnumSelectList<Decision>()"/>
+    </div>
+
+    <h1>Project Managers</h1>
+    <i>Accept and Send to</i>
+    <div class="form-group">
+        <label>Select Supervisor</label>
+        @Html.DropDownListFor(s => s.SendToRole,
+            new SelectList(Model.ProductManager, "Id", "FirstName"), "Select Product Manager", new { @class = "form-control col-md-6" })
+        <span asp-validation-for="SendToRole" class="text-danger"></span>
+    </div>
+
+    <h1>Store Keepers</h1>
+    <i>Reject and Send to</i>
+
+    <div class="form-group">
+        <label>Select Supervisor</label>
+        @Html.DropDownListFor(s => s.SendToRole,
+            new SelectList(Model.StoreKeeper, "Id", "FirstName"), "Select Store Keeper", new { @class = "form-control col-md-6" })
+        <span asp-validation-for="SendToRole" class="text-danger"></span>
+    </div>
+</div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

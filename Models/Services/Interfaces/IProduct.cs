@@ -15,11 +15,11 @@ namespace E_Shopper.Models.Services.Interfaces
 
         Task<bool> StoreKeeperAssignProductToSupervisor(List<Product> products, string userId, string supervisorId);
 
-        Task<IEnumerable<Product>> GetProductsAssignedToSupervisor(string userId,
+        Task<IList<Product>> GetProductsAssignedToSupervisor(
             string supervisorId);
 
         Task SupervisorProcessProduct(List<Product> products,
-            ProductStatus status, string projectManagerId,
+            Decision status, string projectManagerId,
             string storeKeeperId);
 
         Task<IEnumerable<Product>> GetProductsAssignedToProductManager(string userId,
