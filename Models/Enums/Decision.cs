@@ -8,10 +8,10 @@ namespace E_Shopper.Models.Enums
 {
     public enum Decision
     {
-        [Display(Name = "ACCEPT")]
-        Accept = 0,
+        //[Display(Name = "ACCEPT")]
+        Accept,
 
-        [Display(Name = "REJECT")]
-        Reject = 1
+        // [Display(Name = "REJECT")]
+        Reject
     }
 }
