@@ -58,26 +58,22 @@
         </table>
     }
 
-<div>
-
-    <div>
-        <select asp-for="@Model.Decision" asp-items="Html.GetEnumSelectList<Decision>()"/>
+    <div class="form-group">
+        <select class="form-control" asp-for="@Model.Decision" asp-items="Html.GetEnumSelectList<Decision>()"/>
     </div>
 
-    <h1>Project Managers</h1>
-    <i>Accept and Send to</i>
+    
+<div>
     <div class="form-group">
-        <label>Select Supervisor</label>
+        <i>Accept and Send to</i>
         @Html.DropDownListFor(s => s.SendToRole,
             new SelectList(Model.ProductManager, "Id", "FirstName"), "Select Product Manager", new { @class = "form-control col-md-6" })
         <span asp-validation-for="SendToRole" class="text-danger"></span>
     </div>
 
-    <h1>Store Keepers</h1>
-    <i>Reject and Send to</i>
 
     <div class="form-group">
-        <label>Select Supervisor</label>
+        <i>Reject and Send to</i>
         @Html.DropDownListFor(s => s.SendToRole,
             new SelectList(Model.StoreKeeper, "Id", "FirstName"), "Select Store Keeper", new { @class = "form-control col-md-6" })
         <span asp-validation-for="SendToRole" class="text-danger"></span>

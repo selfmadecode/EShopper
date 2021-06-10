@@ -18,9 +18,8 @@ namespace E_Shopper.Models.Services.Interfaces
         Task<IList<Product>> GetProductsAssignedToSupervisor(
             string supervisorId);
 
-        Task SupervisorProcessProduct(List<Product> products,
-            Decision status, string projectManagerId,
-            string storeKeeperId);
+        Task<bool> SupervisorProcessProduct(List<Product> products,
+            Decision status, string sendTo, string supervisorId);
 
         Task<IEnumerable<Product>> GetProductsAssignedToProductManager(string userId,
             string supervisorId);

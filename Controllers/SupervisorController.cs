@@ -41,8 +41,11 @@ namespace E_Shopper.Controllers
         [HttpPost]
         public async Task<IActionResult> ProcessProduct(ProductAndRolesViewModel assignedProducts)
         {
-            var condition = await _productRepo.SupervisorProcessProduct(assignedProducts.ProductsToAssigns,
-                assignedProducts.Decision, assignedProducts.SendToRole)
+            var supervisorId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            var result = await _productRepo.SupervisorProcessProduct(assignedProducts.ProductsToAssigns,
+                assignedProducts.Decision, assignedProducts.SendToRole, supervisorId);
+
             return View();
         }
     }

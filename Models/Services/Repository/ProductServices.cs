@@ -72,18 +72,20 @@ namespace E_Shopper.Models.Services.Repository
             return await _dbContext.Products.Where(s => s.SupervisorId == supervisorId).ToListAsync();
         }
 
-        public async Task SupervisorProcessProduct(List<Product> products, Decision status,
-            string projectManagerId, string storeKeeperId)
+        public async Task<bool> SupervisorProcessProduct(List<Product> products, Decision status,
+            string sendTo, string supervisorId)
         {
             switch (status)
             {
                 case Decision.Accept:
                     var projectManager = await _dbContext.ProductManagers
-                        .FirstOrDefaultAsync(p => p.UserId == projectManagerId);
+                        .FirstOrDefaultAsync(p => p.UserId == sendTo);
 
                     foreach (var product in products)
                     {
                         product.ProductStatus = ProductStatus.SuppervisorApproved;
+                        product.ProductManagerId = sendTo;
+                        product.SupervisorId = supervisorId;
                     }
 
                     //Assign to ProjectManager
@@ -98,7 +100,7 @@ namespace E_Shopper.Models.Services.Repository
                         product.ProductStatus = ProductStatus.SuppervisorDisapproved;
                     }
                     var storeKeeper = await _dbContext.StoreKeepers
-                       .FirstOrDefaultAsync(s => s.UserId == storeKeeperId);
+                       .FirstOrDefaultAsync(s => s.UserId == sendTo);
                     
                     //Assign back to storeKeeper
                     storeKeeper.Products = new List<Product>();
@@ -108,6 +110,8 @@ namespace E_Shopper.Models.Services.Repository
             }
             _dbContext.UpdateRange(products);
             await _dbContext.SaveChangesAsync();
+
+            return true;
         }
 
         public async Task<IEnumerable<Product>> GetProductsAssignedToProductManager(string userId,

@@ -42,13 +42,20 @@ using E_Shopper.Models.Entities;
 #nullable disable
 #nullable restore
 #line 5 "C:\Users\SelfMade\source\repos\E-Shopper\Views\_ViewImports.cshtml"
+using E_Shopper.Models.Enums;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 6 "C:\Users\SelfMade\source\repos\E-Shopper\Views\_ViewImports.cshtml"
 using E_Shopper.Data;
 
 #line default
 #line hidden
 #nullable disable
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"d8ddb6bffa5a9b264bf8f89038bf03c234083fd3", @"/Views/Home/Privacy.cshtml")]
-    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"8ab3b4247b828583a8e6c21f4cead2828a543bfe", @"/Views/_ViewImports.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"979716eb68f2dda1b4cc506a727881851837b0b1", @"/Views/_ViewImports.cshtml")]
     public class Views_Home_Privacy : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<dynamic>
     {
         #pragma warning disable 1998
