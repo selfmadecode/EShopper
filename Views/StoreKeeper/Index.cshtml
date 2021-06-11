@@ -28,57 +28,48 @@
 
             <tbody>
 
-                @{ 
-                    for(int i = 0; i < Model.Products.Count ; i++)
+                @{
+                    for (int i = 0; i < Model.Products.Count; i++)
                     {
-                                <tr>
-                                    <td>
-                                        <input asp-for="@Model.ProductsToAssigns[i].Id " type="hidden" value=" @Model.Products[i].Id" />
-                                        @Model.Products[i].Id
-                                    </td>
-                                    <td>
-                                        <input asp-for="@Model.ProductsToAssigns[i].Name" type="hidden" value="@Model.Products[i].Name" />
-                                        @Model.Products[i].Name
-                                    </td>
-                                    <td>
-                                        <input asp-for="@Model.ProductsToAssigns[i].Quantity" type="hidden" value="@Model.Products[i].Quantity" />
-                                        @Model.Products[i].Quantity
-                                    </td>
-                                    <td>
-                                        <input asp-for="@Model.ProductsToAssigns[i].Amount" type="hidden" value="@Model.Products[i].Amount" />
-                                        @Model.Products[i].Amount
-                                    </td>
-                                    <td>
-                                        <input asp-for="@Model.ProductsToAssigns[i].ExpiringDate " type="hidden" value="@Model.Products[i].ExpiringDate" />
-                                        @Model.Products[i].ExpiringDate
-                                    </td>
-                                </tr>
+                        <tr>
+                            <td>
+                                <input asp-for="@Model.ProductsToAssigns[i].Id " type="hidden" value=" @Model.Products[i].Id" />
+                                @Model.Products[i].Id
+                            </td>
+                            <td>
+                                <input asp-for="@Model.ProductsToAssigns[i].Name" type="hidden" value="@Model.Products[i].Name" />
+                                @Model.Products[i].Name
+                            </td>
+                            <td>
+                                <input asp-for="@Model.ProductsToAssigns[i].Quantity" type="hidden" value="@Model.Products[i].Quantity" />
+                                @Model.Products[i].Quantity
+                            </td>
+                            <td>
+                                <input asp-for="@Model.ProductsToAssigns[i].Amount" type="hidden" value="@Model.Products[i].Amount" />
+                                @Model.Products[i].Amount
+                            </td>
+                            <td>
+                                <input asp-for="@Model.ProductsToAssigns[i].ExpiringDate " type="hidden" value="@Model.Products[i].ExpiringDate" />
+                                @Model.Products[i].ExpiringDate
+                            </td>
+                        </tr>
                     }
                 }
-
-                @*@foreach (var product in Model.Products)
-                {
-                    <tr>
-                        
-                        <td>@product.Amount</td>
-                        <td>@product.Quantity</td>
-                    </tr>
-
-                }*@
             </tbody>
         </table>
+
+
+        <h1>Supervisors</h1>
+
+        <div class="form-group">
+            <label>Select Supervisor</label>
+            @Html.DropDownListFor(s => s.SendToRole,
+                new SelectList(Model.Supervisors, "Id", "FirstName"), "Select Supervisor", new { @class = "form-control col-md-6" })
+            <span asp-validation-for="SendToRole" class="text-danger"></span>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit</button>
     }
-
-    <h1>Supervisors</h1>
-
-    <div class="form-group">
-        <label>Select Supervisor</label>
-        @Html.DropDownListFor(s => s.SendToRole,
-            new SelectList(Model.Supervisors, "Id", "FirstName"), "Select Supervisor", new {@class = "form-control col-md-6" })
-        <span asp-validation-for="SendToRole" class="text-danger"></span>
-    </div>
-
-    <button type="submit" class="btn btn-primary">Submit</button>
 </form>
 
 @section Scripts {
