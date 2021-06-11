@@ -54,7 +54,7 @@ namespace E_Shopper.Models.Services
                     Email = "storekeeper@eshopper.com",
                     EmailConfirmed = true,
                     UserName = "storekeeper@eshopper.com",
-                    FirstName = "Anyanwu",
+                    FirstName = "Storekeeper",
                     LastName = "Raphael"
                 };
 
@@ -81,7 +81,7 @@ namespace E_Shopper.Models.Services
                     Email = "storesupervisor@eshopper.com",
                     EmailConfirmed = true,
                     UserName = "storesupervisor@eshopper.com",
-                    FirstName = "Raphael",
+                    FirstName = "Supervisor",
                     LastName = "Raphael"
                 };
 
@@ -109,7 +109,7 @@ namespace E_Shopper.Models.Services
                     Email = "storemanager@eshopper.com",
                     EmailConfirmed = true,
                     UserName = "storemanager@eshopper.com",
-                    FirstName = "Raphael",
+                    FirstName = "Manager",
                     LastName = "Raphael"
                 };
 

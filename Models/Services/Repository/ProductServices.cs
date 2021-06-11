@@ -95,13 +95,16 @@ namespace E_Shopper.Models.Services.Repository
 
 
                 case Decision.Reject:
+
+                    var storeKeeper = await _dbContext.StoreKeepers
+                        .FirstOrDefaultAsync(s => s.UserId == sendTo);
+
                     foreach (var product in products)
                     {
                         product.ProductStatus = ProductStatus.SuppervisorDisapproved;
-                    }
-                    var storeKeeper = await _dbContext.StoreKeepers
-                       .FirstOrDefaultAsync(s => s.UserId == sendTo);
-                    
+                        product.StoreKeeperId = sendTo;
+                        product.StoreKeeperId = supervisorId;
+                    }                    
                     //Assign back to storeKeeper
                     storeKeeper.Products = new List<Product>();
                     storeKeeper.Products.AddRange(products);
@@ -114,49 +117,53 @@ namespace E_Shopper.Models.Services.Repository
             return true;
         }
 
-        public async Task<IEnumerable<Product>> GetProductsAssignedToProductManager(string userId,
+        public async Task<IList<Product>> GetProductsAssignedToProductManager(
             string supervisorId)
         {
-            var supervisor = _dbContext.ProductManagers.FirstOrDefault(s => s.UserId == userId);
-            return await _dbContext.Products.Where(s => s.SupervisorId == supervisorId).ToListAsync();
+            return await _dbContext.Products.Where(s => s.ProductManagerId == supervisorId).ToListAsync();
         }
 
-        public async Task ProductManagerProcessProduct(List<Product> products,
-            ProductStatus status, string projectManagerId, string supervisorId)
+        public async Task<bool> ProductManagerProcessProduct(List<Product> products,
+            Decision status, string sendTo, string productManagerId)
         {
             var projectManager = await _dbContext.ProductManagers
-                .FirstOrDefaultAsync(p => p.UserId == projectManagerId);
+                .FirstOrDefaultAsync(p => p.UserId == productManagerId);
 
             switch (status)
             {
-                case ProductStatus.SuppervisorApproved:
+                case Decision.Accept:
                     foreach (var product in products)
                     {
-                        product.ProductStatus = status;
+                        product.ProductStatus = ProductStatus.ProductManagerApproved;
+                        product.ProductManagerId = productManagerId;
+
                     }
                     //Assign to ProjectManager
 
                     projectManager.Products = new List<Product>();
                     projectManager.Products.AddRange(products);
-                    // remove the product
 
                     break;
 
-                case ProductStatus.SuppervisorDisapproved:
+                case Decision.Reject:
+
+                    var supervisor = await _dbContext.Supervisors
+                      .FirstOrDefaultAsync(s => s.UserId == sendTo);
+
                     foreach (var product in products)
                     {
-                        product.ProductStatus = status;
+                        product.ProductStatus = ProductStatus.ProductManagerDisapproved;
                     }
-                    var storeKeeper = await _dbContext.StoreKeepers
-                       .FirstOrDefaultAsync(s => s.UserId == supervisorId);
 
-                    storeKeeper.Products = new List<Product>();
-                    storeKeeper.Products.AddRange(products);
-                    // remove the product
+
+                    supervisor.Products = new List<Product>();
+                    supervisor.Products.AddRange(products);
 
                     break;
             }
+            _dbContext.UpdateRange(products);
             await _dbContext.SaveChangesAsync();
+            return true;
         }
 
         public async Task<IEnumerable<Product>> SellApprovedProducts()

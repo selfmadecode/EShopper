@@ -21,10 +21,10 @@ namespace E_Shopper.Models.Services.Interfaces
         Task<bool> SupervisorProcessProduct(List<Product> products,
             Decision status, string sendTo, string supervisorId);
 
-        Task<IEnumerable<Product>> GetProductsAssignedToProductManager(string userId,
+        Task<IList<Product>> GetProductsAssignedToProductManager(
             string supervisorId);
 
-        Task ProductManagerProcessProduct(List<Product> products, ProductStatus status,
+        Task<bool> ProductManagerProcessProduct(List<Product> products, Decision status,
             string projectManagerId, string supervisorId);
         Task<IEnumerable<Product>> SellApprovedProducts();
     }
