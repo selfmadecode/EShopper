@@ -29,10 +29,12 @@ namespace E_Shopper.Controllers
         }
         public async Task<IActionResult> Index()
         {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
 
             var product = new ProductAndRolesViewModel
             {
-                Products = await _productRepo.AllProduct(),
+                Products = await _productRepo.AllProduct(userId),
                 Supervisors = await _userManager.GetUsersInRoleAsync("Supervisor")
             };            
 

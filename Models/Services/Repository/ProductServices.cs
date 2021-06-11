@@ -25,9 +25,11 @@ namespace E_Shopper.Models.Services.Repository
             await _dbContext.SaveChangesAsync();
         }
 
-        public async Task<IList<Product>> AllProduct()
+        public async Task<IList<Product>> AllProduct(string userId)
         {
-            return await _dbContext.Products.Where(p => p.ProductStatus == null).ToListAsync();
+            //The difference is that | always checks both the left and right conditions, while || only
+            //checks the right-side condition if it's necessary (if the left side evaluates to false).
+            return await _dbContext.Products.Where(p => p.ProductStatus == null | p.StoreKeeperId == userId).ToListAsync();
         }
 
         public async Task<bool> StoreKeeperAssignProductToSupervisor(List<Product> products,
@@ -51,7 +53,7 @@ namespace E_Shopper.Models.Services.Repository
 
             foreach (var product in products)
             {
-                product.StoreKeeperId = storeKeeperId;
+                product.SentBy = storeKeeperId;
                 product.SupervisorId = supervisorId;
                 product.ProductStatus = ProductStatus.ProductAssignedToSupervisor;
             };
@@ -85,7 +87,7 @@ namespace E_Shopper.Models.Services.Repository
                     {
                         product.ProductStatus = ProductStatus.SuppervisorApproved;
                         product.ProductManagerId = sendTo;
-                        product.SupervisorId = supervisorId;
+                        product.SentBy = supervisorId;
                     }
 
                     //Assign to ProjectManager
@@ -103,13 +105,14 @@ namespace E_Shopper.Models.Services.Repository
                     {
                         product.ProductStatus = ProductStatus.SuppervisorDisapproved;
                         product.StoreKeeperId = sendTo;
-                        product.StoreKeeperId = supervisorId;
+                        product.SentBy = supervisorId;
                     }                    
                     //Assign back to storeKeeper
                     storeKeeper.Products = new List<Product>();
                     storeKeeper.Products.AddRange(products);
 
                     break;
+
             }
             _dbContext.UpdateRange(products);
             await _dbContext.SaveChangesAsync();
@@ -153,6 +156,8 @@ namespace E_Shopper.Models.Services.Repository
                     foreach (var product in products)
                     {
                         product.ProductStatus = ProductStatus.ProductManagerDisapproved;
+                        product.SentBy = productManagerId;
+                        product.SupervisorId = sendTo;
                     }
 
 

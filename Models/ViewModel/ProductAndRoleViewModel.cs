@@ -13,6 +13,7 @@ namespace E_Shopper.Models.ViewModel
     public class ProductAndRolesViewModel
     {
         public string SendToRole { get; set; }
+        public string SendBackTo { get; set; }
 
         public Decision Decision { get; set; }
 

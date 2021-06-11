@@ -11,7 +11,7 @@ namespace E_Shopper.Models.Services.Interfaces
     {
         Task AddProduct(Product product);
 
-        Task<IList<Product>> AllProduct();
+        Task<IList<Product>> AllProduct(string userId);
 
         Task<bool> StoreKeeperAssignProductToSupervisor(List<Product> products, string userId, string supervisorId);
 

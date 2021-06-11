@@ -26,6 +26,7 @@ namespace E_Shopper.Models.Entities
         public string StoreKeeperId { get; set; }
         public string SupervisorId { get; set; }
         public string ProductManagerId { get; set; }
+        public string SentBy { get; set; }
 
     }
 }

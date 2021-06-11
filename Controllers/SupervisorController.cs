@@ -43,10 +43,14 @@ namespace E_Shopper.Controllers
         {
             var supervisorId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            var result = await _productRepo.SupervisorProcessProduct(assignedProducts.ProductsToAssigns,
-                assignedProducts.Decision, assignedProducts.SendToRole, supervisorId);
+            var result = await _productRepo.SupervisorProcessProduct(
+                assignedProducts.ProductsToAssigns,
+                assignedProducts.Decision,
+                assignedProducts.SendToRole ?? assignedProducts.SendBackTo,
+                // if sendToRole is null, use sendback to 
+                supervisorId);
 
-            return View();
+            return RedirectToAction("Index");
         }
     }
 }

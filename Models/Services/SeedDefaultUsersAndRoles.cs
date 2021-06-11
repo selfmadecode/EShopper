@@ -147,18 +147,21 @@ namespace E_Shopper.Models.Services
                     Name = "Gala",
                     Amount = 23,
                     Quantity = 2,
+                    ExpiringDate = new DateTime(2021, 3, 29)
                 },
                 new Product
                 {
                     Name = "Charger",
                     Amount = 203,
                     Quantity = 2,
+                    ExpiringDate = new DateTime(2021, 3, 29)
                 },
                 new Product
                 {
                     Name = "Creame",
                     Amount = 3,
                     Quantity = 2,
+                    ExpiringDate = new DateTime(2021, 3, 29)
                 }
             };
 

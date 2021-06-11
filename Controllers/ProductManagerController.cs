@@ -45,7 +45,7 @@ namespace E_Shopper.Controllers
             var result = await _productRepo.ProductManagerProcessProduct(assignedProducts.ProductsToAssigns,
                 assignedProducts.Decision, assignedProducts.SendToRole, productManager);
 
-            return View();
+            return RedirectToAction("Index");
         }
     }
 }
