@@ -1,4 +1,5 @@
-﻿using E_Shopper.Models.Entities;
+﻿using E_Shopper.Data;
+using E_Shopper.Models.Entities;
 using E_Shopper.Models.Enums;
 using System;
 using System.Collections.Generic;

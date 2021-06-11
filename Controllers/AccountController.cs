@@ -1,4 +1,5 @@
 ﻿using E_Shopper.Data;
+using E_Shopper.Models.Services.Interfaces;
 using E_Shopper.Models.ViewModel;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -13,13 +14,19 @@ namespace E_Shopper.Controllers
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly ICustomer _customer;
 
         public AccountController(UserManager<ApplicationUser> userManager,
-            SignInManager<ApplicationUser> signInManager
+            SignInManager<ApplicationUser> signInManager,
+            RoleManager<IdentityRole> roleManager,
+            ICustomer customer
             )
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _roleManager = roleManager;
+            _customer = customer;
         }
 
         [HttpGet]
@@ -54,7 +61,11 @@ namespace E_Shopper.Controllers
         [HttpGet]
         public ViewResult Register()
         {
-            return View();
+            var roles = new RegisterViewModel {
+                RolesInDb = _roleManager.Roles
+            };
+            
+            return View(roles);
         }
 
 
@@ -79,8 +90,13 @@ namespace E_Shopper.Controllers
                 if (result.Succeeded)
                 {
 
-                    await _userManager.AddToRoleAsync(user, registerViewModel.RoleName);
-                    await _signInManager.SignInAsync(user, isPersistent: false);
+                    var createUser = _customer.CreateUser(user, registerViewModel.RoleName);
+
+                    if (createUser)
+                    {
+                        await _userManager.AddToRoleAsync(user, registerViewModel.RoleName);
+                        await _signInManager.SignInAsync(user, isPersistent: false);
+                    }                    
                     return LocalRedirect(returnUrl ?? "/");
 
                 }

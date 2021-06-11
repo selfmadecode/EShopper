@@ -25,6 +25,11 @@ namespace E_Shopper.Models.Services.Repository
             await _dbContext.SaveChangesAsync();
         }
 
+        public void CreateUser(ApplicationUser user, string role)
+        {
+
+        }
+
         public async Task<IList<Product>> AllProduct(string userId)
         {
             //The difference is that | always checks both the left and right conditions, while || only

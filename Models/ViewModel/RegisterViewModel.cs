@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Identity;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -36,7 +37,7 @@ namespace E_Shopper.Models.ViewModel
             [Required]
             public string RoleName { get; set; }
 
-            public IEnumerable<string> RolesInDb { get; set; }
+            public IEnumerable<IdentityRole> RolesInDb { get; set; }
         
     }
 }
