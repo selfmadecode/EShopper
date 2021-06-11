@@ -43,6 +43,7 @@ namespace E_Shopper
               .AddEntityFrameworkStores<ApplicationDbContext>();
 
             services.AddScoped<IProduct, ProductServices>();
+            services.AddScoped<ICustomer, CustomerService>();
 
             services.AddControllersWithViews();
             //services.AddRazorPages();
