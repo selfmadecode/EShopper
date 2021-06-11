@@ -90,6 +90,10 @@ namespace E_Shopper.Models.Services.Repository
                         product.SentBy = supervisorId;
                     }
 
+                    //SetProductStatus(products,
+                    //    supervisorId, null, ProductStatus.SuppervisorApproved,
+                    //    sendTo, null, null);
+
                     //Assign to ProjectManager
                     projectManager.Products = new List<Product>();
                     projectManager.Products.AddRange(products);
@@ -160,7 +164,6 @@ namespace E_Shopper.Models.Services.Repository
                         product.SupervisorId = sendTo;
                     }
 
-
                     supervisor.Products = new List<Product>();
                     supervisor.Products.AddRange(products);
 
@@ -176,5 +179,24 @@ namespace E_Shopper.Models.Services.Repository
             .Where(p => p.ProductStatus == ProductStatus.ProductManagerApproved)
             .ToListAsync();
 
+
+        private void SetProductStatus(List<Product> products,
+            string sentBy, string supervisorId,
+            ProductStatus productStatus, string managerId, string storeKeeperId,
+            string productManagerId)
+        {
+            foreach (var product in products)
+            {
+                product.SentBy = sentBy;
+                product.SupervisorId = supervisorId;
+                product.ProductStatus = productStatus;
+                product.ProductManagerId = managerId;
+                product.StoreKeeperId = storeKeeperId;
+                product.ProductManagerId = productManagerId;
+            }
+        }
+
     }
+
+    
 }
