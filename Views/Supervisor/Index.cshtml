@@ -62,7 +62,7 @@
             <div class="form-group col-md-6">
                 <i>Accept and Send to</i>
                 @Html.DropDownListFor(s => s.SendToRole,
-                    new SelectList(Model.ProductManager, "Id", "FirstName"), "Select Product Manager", new { @class = "form-control" })
+                    new SelectList(Model.ProductManager, "Id", "FirstName"), "Select Product Manager", new { @class = "form-control ProductManagerDropDown" })
                 <span asp-validation-for="SendToRole" class="text-danger"></span>
             </div>
 
@@ -70,20 +70,49 @@
             <div class="form-group col-md-6">
                 <i>Reject and Send to</i>
                 @Html.DropDownListFor(s => s.SendBackTo,
-                    new SelectList(Model.StoreKeeper, "Id", "FirstName"), "Select Store Keeper", new { @class = "form-control" })
+                    new SelectList(Model.StoreKeeper, "Id", "FirstName"), "Select Store Keeper", new { @class = "form-control StoreKeeperDropdown" })
                 <span asp-validation-for="SendBackTo" class="text-danger"></span>
             </div>
         </div>
 
 
-        <div class="form-group">
-            <select class="form-control" asp-for="@Model.Decision" asp-items="Html.GetEnumSelectList<Decision>()"></select>
-        </div>
+
 
         <button type="submit" class="btn btn-primary">Submit</button>
     }
 
 </form>
+<div class="form-group">
+    <select onchange="showDropDown()" class="form-control" id="Decision" asp-for="@Model.Decision" asp-items="Html.GetEnumSelectList<Decision>()"></select>
+</div>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        //index 3 is banana
+    });
+
+    function showDropDown() {
+        const selected = document.getElementById("Decision").selectedIndex;
+        const opt = document.getElementById("Decision").options;
+        // alert(selected);
+        var selectedDecision = opt[selected].text;
+
+        switch (selectedDecision) {
+
+            case "Reject":
+                alert("Reject");
+                break;
+
+            case "Accept":
+                alert("Accept");
+                break;
+        }
+    }
+
+
+</script>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
