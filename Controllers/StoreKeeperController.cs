@@ -48,15 +48,15 @@ namespace E_Shopper.Controllers
         }
 
         [HttpPost]
-        public async Task<ViewResult> Add(Product product)
+        public async Task<IActionResult> Add(Product product)
         {
             if (!ModelState.IsValid)
             {
-                return View(product);
+                return PartialView("Add", product);
             }
             await _productRepo.AddProduct(product);
 
-            return View();
+            return Json(new { response = "success" });
         }
         public async Task<IActionResult> AssignProductToSupervisor(AssignProductToSupervisor assignedProducts)
         {
@@ -69,7 +69,7 @@ namespace E_Shopper.Controllers
                     Supervisors = await _userManager.GetUsersInRoleAsync("Supervisor")
                 };
 
-                return View("Index", product);
+                return PartialView("Index", product);
             }
 
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -78,9 +78,9 @@ namespace E_Shopper.Controllers
                 assignedProducts.ProductsToAssigns, userId, assignedProducts.SendToRole);
 
             if (!assignTo)
-                return RedirectToAction("Index");
+                throw new Exception("Something went wrong");
 
-            return RedirectToAction("Index");
+            return Json(new { response = "success" });
         }
     }
 }

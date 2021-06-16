@@ -2,13 +2,13 @@
 
 
 
-<div class="container-fluid">
+<div id ="contentPage" class="container-fluid">
 
     <div class="row">
         <div class="col-12">
             <div class="card">
 
-                <form class="form-group" asp-action="AssignProductToSupervisor" method="post">
+                <form data-ajax="true" class="form-group" data-ajax-failure="failed" data-ajax-complete="completed" asp-action="AssignProductToSupervisor" data-ajax-method="post">
 
                     @*<div asp-validation-summary="All" class="text-danger"></div>*@
 
@@ -21,7 +21,7 @@
                     {
 
 
-                        <div class="card-body">
+                        <div id="" class="card-body">
 
                             <h4 class="card-title">Products Table</h4>
                             <p class="card-title-desc">
@@ -49,7 +49,7 @@
                                             //if(Model.Products[i].Comment != null)
                                             //{
                                             //}
-                                                ViewBag.Comment = Model.Products[i].Comment ?? "Products Pending approval";
+                                            ViewBag.Comment = Model.Products[i].Comment ?? "Products Pending approval";
 
 
                                             <tr>
@@ -111,4 +111,26 @@
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
+
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/jquery-ajax-unobtrusive/jquery.unobtrusive-ajax.min.js"></script>
+
+    <script>
+        function completed(xhr) {
+            if (xhr.response == "success") {
+                window.location.reload();
+
+            } else if (xhr.response == null) {
+
+                var tableData = document.getElementById("contentPage");
+                tableData.innerHTML = xhr.responseText;
+            }
+        }
+
+        failed = function(xhr) {
+            alert(xhr.status + xhr.statusText);
+        };
+
+    </script>
 }
