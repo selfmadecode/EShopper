@@ -1,90 +1,120 @@
 ﻿@model ProductAndRolesViewModel
 
-<h1>All Products</h1>
 
-<form asp-action="ProcessProduct" method="post">
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <form class="form-group" asp-action="ProcessProduct" method="post">
 
-    <div asp-validation-summary="All" class="text-danger"></div>
-
-    @if (!Model.Products.Any())
-    {
-        <h1>No Products Assigned to you</h1>
-    }
-    else
-    {
-
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Id</th>
-                    <th>Name</th>
-                    <th>Quantity</th>
-                    <th>Amount</th>
-                    <th>Date</th>
-                </tr>
-            </thead>
+                        @if (!Model.Products.Any())
+                        {
+                            <h4 class="text-info">No Products Assigned to you</h4>
+                        }
+                        else
+                        {
 
 
-            <tbody>
+                            <h4 class="card-title">Products assign to you</h4>
 
-                @{
-                    for (int i = 0; i < Model.Products.Count; i++)
-                    {
-                        <tr>
-                            <td>
-                                <input asp-for="@Model.ProductsToAssigns[i].Id " type="hidden" value=" @Model.Products[i].Id" />
-                                @Model.Products[i].Id
-                            </td>
-                            <td>
-                                <input asp-for="@Model.ProductsToAssigns[i].Name" type="hidden" value="@Model.Products[i].Name" />
-                                @Model.Products[i].Name
-                            </td>
-                            <td>
-                                <input asp-for="@Model.ProductsToAssigns[i].Quantity" type="hidden" value="@Model.Products[i].Quantity" />
-                                @Model.Products[i].Quantity
-                            </td>
-                            <td>
-                                <input asp-for="@Model.ProductsToAssigns[i].Amount" type="hidden" value="@Model.Products[i].Amount" />
-                                @Model.Products[i].Amount
-                            </td>
-                            <td>
-                                <input asp-for="@Model.ProductsToAssigns[i].ExpiringDate " type="hidden" value="@Model.Products[i].ExpiringDate" />
-                                @Model.Products[i].ExpiringDate
-                            </td>
-                        </tr>
-                    }
-                }
-            </tbody>
-        </table>
+                            <p class="card-title-desc">
+                                Send the following products to a supervisor for immediate approval
+                            </p>
+
+                            <table id="datatable" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                <thead>
+                                    <tr>
+                                        <th>Id</th>
+                                        <th>Name</th>
+                                        <th>Quantity</th>
+                                        <th>Amount</th>
+                                        <th>Date</th>
+                                    </tr>
+                                </thead>
 
 
-        <div class="form-row">
-            <div class="form-group col-md-6">
-                <i>Accept and Send to</i>
-                @Html.DropDownListFor(s => s.SendToRole,
-                    new SelectList(Model.ProductManager, "Id", "FirstName"), "Select Product Manager", new { @class = "form-control ProductManagerDropDown" })
-                <span asp-validation-for="SendToRole" class="text-danger"></span>
-            </div>
+                                <tbody>
+
+                                    @{
+                                        for (int i = 0; i < Model.Products.Count; i++)
+                                        {
+                                            <tr>
+                                                <td>
+                                                    <input asp-for="@Model.ProductsToAssigns[i].Id " type="hidden" value=" @Model.Products[i].Id" />
+                                                    @Model.Products[i].Id
+                                                </td>
+                                                <td>
+                                                    <input asp-for="@Model.ProductsToAssigns[i].Name" type="hidden" value="@Model.Products[i].Name" />
+                                                    @Model.Products[i].Name
+                                                </td>
+                                                <td>
+                                                    <input asp-for="@Model.ProductsToAssigns[i].Quantity" type="hidden" value="@Model.Products[i].Quantity" />
+                                                    @Model.Products[i].Quantity
+                                                </td>
+                                                <td>
+                                                    <input asp-for="@Model.ProductsToAssigns[i].Amount" type="hidden" value="@Model.Products[i].Amount" />
+                                                    @Model.Products[i].Amount
+                                                </td>
+                                                <td>
+                                                    <input asp-for="@Model.ProductsToAssigns[i].ExpiringDate " type="hidden" value="@Model.Products[i].ExpiringDate" />
+                                                    @Model.Products[i].ExpiringDate
+                                                </td>
+                                            </tr>
+                                        }
+                                    }
+                                </tbody>
+                            </table>
 
 
-            <div class="form-group col-md-6">
-                <i>Reject and Send to</i>
-                @Html.DropDownListFor(s => s.SendBackTo,
-                    new SelectList(Model.StoreKeeper, "Id", "FirstName"), "Select Store Keeper", new { @class = "form-control StoreKeeperDropdown" })
-                <span asp-validation-for="SendBackTo" class="text-danger"></span>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <i>Accept and Send to</i>
+                                    @Html.DropDownListFor(s => s.SendToRole,
+                                        new SelectList(Model.ProductManager, "Id", "FirstName"), "Select Product Manager", new { @class = "form-control ProductManagerDropDown" })
+                                    <span asp-validation-for="SendToRole" class="text-danger"></span>
+                                </div>
+
+
+                                <div class="form-group col-md-6">
+                                    <i>Rejecct and Send to</i>
+                                    @Html.DropDownListFor(s => s.SendBackTo,
+                                        new SelectList(Model.StoreKeeper, "Id", "FirstName"), "Select Store Keeper", new { @class = "form-control StoreKeeperDropdown" })
+                                    <span asp-validation-for="SendBackTo" class="text-danger"></span>
+                                </div>
+
+
+                                <h4 class="text-danger">@ViewBag.SelectOneRole</h4>
+                            </div>
+
+
+                            <div class="form-group">
+                                <select class="form-control" id="Decision" asp-for="@Model.Decision" asp-items="Html.GetEnumSelectList<Decision>()">
+                                    <option selected="selected" value="">Please select</option>
+                                </select>
+                            </div>
+
+                            <button type="submit" class="btn btn-success">Submit</button>
+
+
+
+
+
+
+
+                        }
+
+
+
+                    </form>
+                </div>
+
             </div>
         </div>
 
-
-
-
-        <button type="submit" class="btn btn-primary">Submit</button>
-    }
-
-</form>
-<div class="form-group">
-    <select onchange="showDropDown()" class="form-control" id="Decision" asp-for="@Model.Decision" asp-items="Html.GetEnumSelectList<Decision>()"></select>
+    </div>
 </div>
+
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 
 <script type="text/javascript">
@@ -93,23 +123,23 @@
         //index 3 is banana
     });
 
-    function showDropDown() {
-        const selected = document.getElementById("Decision").selectedIndex;
-        const opt = document.getElementById("Decision").options;
-        // alert(selected);
-        var selectedDecision = opt[selected].text;
+    //function showDropDown() {
+    //    const selected = document.getElementById("Decision").selectedIndex;
+    //    const opt = document.getElementById("Decision").options;
+    //    // alert(selected);
+    //    var selectedDecision = opt[selected].text;
 
-        switch (selectedDecision) {
+    //    switch (selectedDecision) {
 
-            case "Reject":
-                alert("Reject");
-                break;
+    //        case "Reject":
+    //            //alert("Reject");
+    //            break;
 
-            case "Accept":
-                alert("Accept");
-                break;
-        }
-    }
+    //        case "Accept":
+    //           // alert("Accept");
+    //            break;
+    //    }
+    //}
 
 
 </script>

@@ -58,8 +58,20 @@ namespace E_Shopper.Controllers
 
             return View();
         }
-        public async Task<IActionResult> AssignProductToSupervisor(ProductAndRolesViewModel assignedProducts)
+        public async Task<IActionResult> AssignProductToSupervisor(AssignProductToSupervisor assignedProducts)
         {
+
+            if (!ModelState.IsValid)
+            {
+                var product = new ProductAndRolesViewModel
+                {
+                    Products = assignedProducts.ProductsToAssigns,
+                    Supervisors = await _userManager.GetUsersInRoleAsync("Supervisor")
+                };
+
+                return View("Index", product);
+            }
+
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
             var assignTo = await _productRepo.StoreKeeperAssignProductToSupervisor(

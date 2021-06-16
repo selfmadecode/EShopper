@@ -1,5 +1,6 @@
 ﻿using E_Shopper.Data;
 using E_Shopper.Models.Entities;
+using E_Shopper.Models.Enums;
 using E_Shopper.Models.Services.Interfaces;
 using E_Shopper.Models.ViewModel;
 using Microsoft.AspNetCore.Identity;
@@ -40,12 +41,51 @@ namespace E_Shopper.Controllers
         [HttpPost]
         public async Task<IActionResult> ProcessProduct(ProductAndRolesViewModel assignedProducts)
         {
+
+            // if the user accepts the product and selects a role
+            if ((assignedProducts.Decision == Decision.Accept) &&
+                (!string.IsNullOrEmpty(assignedProducts.SendBackTo)))
+            {
+                ViewBag.SelectOneRole = "Accepted Product cannot be assigned back to Supervisors";
+
+                var product = await SetModelState(assignedProducts);
+
+                return View("Index", product);
+            }
+
+            // if the user rejects the products and a role 
+            // is not selected to send the product back to
+            if((assignedProducts.Decision == Decision.Reject) &&
+                (string.IsNullOrEmpty(assignedProducts.SendBackTo)))
+            {
+                ViewBag.SelectOneRole = "Select a role to send to";
+
+                var product = await SetModelState(assignedProducts);
+
+                return View("Index", product);
+            }
+
+
+
             var productManager = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
             var result = await _productRepo.ProductManagerProcessProduct(assignedProducts.ProductsToAssigns,
-                assignedProducts.Decision, assignedProducts.SendToRole, productManager);
+                assignedProducts.Decision, assignedProducts.SendBackTo, productManager);
 
+            if (!result)
+                throw new Exception("Something went wrong!");
             return RedirectToAction("Index");
+        }
+
+        private async Task<ProductAndRolesViewModel> SetModelState(ProductAndRolesViewModel assignedProducts)
+        {
+            var product = new ProductAndRolesViewModel
+            {
+                Products = assignedProducts.ProductsToAssigns,
+                Supervisors = await _userManager.GetUsersInRoleAsync("Supervisor")
+            };
+
+            return product;
         }
     }
 }

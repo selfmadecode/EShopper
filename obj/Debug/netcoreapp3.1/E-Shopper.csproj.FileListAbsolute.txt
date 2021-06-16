@@ -167,3 +167,5 @@ C:\Users\SelfMade\source\repos\E-Shopper\obj\Debug\netcoreapp3.1\Razor\Views\Acc
 C:\Users\SelfMade\source\repos\E-Shopper\obj\Debug\netcoreapp3.1\E-Shopper.csproj.AssemblyReference.cache
 C:\Users\SelfMade\source\repos\E-Shopper\obj\Debug\netcoreapp3.1\Razor\Views\Supervisor\Index.cshtml.g.cs
 C:\Users\SelfMade\source\repos\E-Shopper\obj\Debug\netcoreapp3.1\Razor\Views\ProductManager\Index.cshtml.g.cs
+C:\Users\SelfMade\source\repos\E-Shopper\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_AdminSideBar.cshtml.g.cs
+C:\Users\SelfMade\source\repos\E-Shopper\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_AdminLayout.cshtml.g.cs

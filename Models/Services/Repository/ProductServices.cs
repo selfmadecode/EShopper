@@ -48,12 +48,12 @@ namespace E_Shopper.Models.Services.Repository
                 return false;
             }
 
-            // Remove product from product page
-            // _dbContext.Products.RemoveRange(products);
-
             var storeKeeper = _dbContext.StoreKeepers.FirstOrDefault(u => u.UserId == storeKeeperId);
 
             var supervisor = _dbContext.Supervisors.FirstOrDefault(s => s.UserId == supervisorId);
+
+            if (storeKeeper == null || supervisor == null)
+                return false;
 
 
             foreach (var product in products)
@@ -88,6 +88,9 @@ namespace E_Shopper.Models.Services.Repository
                     var projectManager = await _dbContext.ProductManagers
                         .FirstOrDefaultAsync(p => p.UserId == sendTo);
 
+                    if (projectManager == null)
+                        return false;
+
                     foreach (var product in products)
                     {
                         product.ProductStatus = ProductStatus.SuppervisorApproved;
@@ -95,11 +98,6 @@ namespace E_Shopper.Models.Services.Repository
                         product.SentBy = supervisorId;
                     }
 
-                    //SetProductStatus(products,
-                    //    supervisorId, null, ProductStatus.SuppervisorApproved,
-                    //    sendTo, null, null);
-
-                    //Assign to ProjectManager
                     projectManager.Products = new List<Product>();
                     projectManager.Products.AddRange(products);
                     break;
@@ -109,6 +107,9 @@ namespace E_Shopper.Models.Services.Repository
 
                     var storeKeeper = await _dbContext.StoreKeepers
                         .FirstOrDefaultAsync(s => s.UserId == sendTo);
+
+                    if (storeKeeper == null)
+                        return false;
 
                     foreach (var product in products)
                     {
@@ -141,6 +142,9 @@ namespace E_Shopper.Models.Services.Repository
             var projectManager = await _dbContext.ProductManagers
                 .FirstOrDefaultAsync(p => p.UserId == productManagerId);
 
+            if (projectManager == null)
+                return false;
+
             switch (status)
             {
                 case Decision.Accept:
@@ -161,6 +165,9 @@ namespace E_Shopper.Models.Services.Repository
 
                     var supervisor = await _dbContext.Supervisors
                       .FirstOrDefaultAsync(s => s.UserId == sendTo);
+
+                    if (supervisor == null)
+                        return false;
 
                     foreach (var product in products)
                     {
