@@ -23,5 +23,7 @@ namespace E_Shopper.Models.ViewModel
         public IEnumerable<ApplicationUser> ProductManager { get; set; }
 
         public List<Product> ProductsToAssigns { get; set; }
+
+        public string Comment { get; set; }
     }
 }

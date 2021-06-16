@@ -70,7 +70,7 @@ namespace E_Shopper.Controllers
             var productManager = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
             var result = await _productRepo.ProductManagerProcessProduct(assignedProducts.ProductsToAssigns,
-                assignedProducts.Decision, assignedProducts.SendBackTo, productManager);
+                assignedProducts.Decision, assignedProducts.SendBackTo, productManager, assignedProducts.Comment);
 
             if (!result)
                 throw new Exception("Something went wrong!");

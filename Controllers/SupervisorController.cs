@@ -107,7 +107,7 @@ namespace E_Shopper.Controllers
                 case Decision.Accept:
                     OperationResult = await _productRepo.SupervisorProcessProduct(
                            assignedProducts.ProductsToAssigns, assignedProducts.Decision,
-                           assignedProducts.SendToRole, supervisorId);
+                           assignedProducts.SendToRole, supervisorId, assignedProducts.Comment);
                     break;
 
                 //if the decision is accepted, send the product to
@@ -116,7 +116,7 @@ namespace E_Shopper.Controllers
                     OperationResult = await _productRepo.SupervisorProcessProduct(
                             assignedProducts.ProductsToAssigns,
                             assignedProducts.Decision,
-                            assignedProducts.SendBackTo, supervisorId);
+                            assignedProducts.SendBackTo, supervisorId, assignedProducts.Comment);
                     break;
             }
 

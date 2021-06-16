@@ -37,8 +37,12 @@
                                 <tbody>
 
                                     @{
+
                                         for (int i = 0; i < Model.Products.Count; i++)
                                         {
+                                            ViewBag.Comment = Model.Products[i].Comment ?? "Supervisor seen";
+
+
                                             <tr>
                                                 <td>
                                                     <input asp-for="@Model.ProductsToAssigns[i].Id " type="hidden" value=" @Model.Products[i].Id" />
@@ -94,13 +98,11 @@
                                 </select>
                             </div>
 
+                            <div class="form-group">
+                                <input class="form-control" asp-for="Comment" type="text" value="@ViewBag.Comment" placeholder="Give a comment" />
+                            </div>
+
                             <button type="submit" class="btn btn-success">Submit</button>
-
-
-
-
-
-
 
                         }
 

@@ -80,7 +80,7 @@ namespace E_Shopper.Models.Services.Repository
         }
 
         public async Task<bool> SupervisorProcessProduct(List<Product> products, Decision status,
-            string sendTo, string supervisorId)
+            string sendTo, string supervisorId, string comment)
         {
             switch (status)
             {
@@ -96,6 +96,7 @@ namespace E_Shopper.Models.Services.Repository
                         product.ProductStatus = ProductStatus.SuppervisorApproved;
                         product.ProductManagerId = sendTo;
                         product.SentBy = supervisorId;
+                        product.Comment = comment;
                     }
 
                     projectManager.Products = new List<Product>();
@@ -116,7 +117,8 @@ namespace E_Shopper.Models.Services.Repository
                         product.ProductStatus = ProductStatus.SuppervisorDisapproved;
                         product.StoreKeeperId = sendTo;
                         product.SentBy = supervisorId;
-                    }                    
+                        product.Comment = comment;
+                    }
                     //Assign back to storeKeeper
                     storeKeeper.Products = new List<Product>();
                     storeKeeper.Products.AddRange(products);
@@ -137,7 +139,7 @@ namespace E_Shopper.Models.Services.Repository
         }
 
         public async Task<bool> ProductManagerProcessProduct(List<Product> products,
-            Decision status, string sendTo, string productManagerId)
+            Decision status, string sendTo, string productManagerId, string comment)
         {
             var projectManager = await _dbContext.ProductManagers
                 .FirstOrDefaultAsync(p => p.UserId == productManagerId);
@@ -152,6 +154,7 @@ namespace E_Shopper.Models.Services.Repository
                     {
                         product.ProductStatus = ProductStatus.ProductManagerApproved;
                         product.ProductManagerId = productManagerId;
+                        product.Comment = comment;
 
                     }
                     //Assign to ProjectManager
@@ -174,6 +177,7 @@ namespace E_Shopper.Models.Services.Repository
                         product.ProductStatus = ProductStatus.ProductManagerDisapproved;
                         product.SentBy = productManagerId;
                         product.SupervisorId = sendTo;
+                        product.Comment = comment;
                     }
 
                     supervisor.Products = new List<Product>();

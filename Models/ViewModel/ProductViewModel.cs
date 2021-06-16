@@ -29,17 +29,5 @@ namespace E_Shopper.Models.ViewModel
         [Display(Name = "Expiration Date")] // what is shown on the form label
         public DateTime? ExpiringDate { get; set; }
 
-        /*
-        [Required(ErrorMessage = "choose file")]
-        [Display(Name = "Upload Image")]
-        public string ImagePath { get; set; }
-
-
-        [NotMapped]
-        public HttpPostedFileBase ImageFile { get; set; }
-
-        */
-        // Category Navigation prop
-
     }
 }

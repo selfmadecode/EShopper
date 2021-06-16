@@ -1,10 +1,5 @@
 ﻿@model ProductAndRolesViewModel
 
-@{
-    //Layout = "~/Views/Shared/_AdminLayout.cshtml";
-
-}
-
 
 
 <div class="container-fluid">
@@ -48,8 +43,15 @@
                                 <tbody>
 
                                     @{
+
                                         for (int i = 0; i < Model.Products.Count; i++)
                                         {
+                                            //if(Model.Products[i].Comment != null)
+                                            //{
+                                            //}
+                                                ViewBag.Comment = Model.Products[i].Comment ?? "Products Pending approval";
+
+
                                             <tr>
                                                 <td>
                                                     <input asp-for="@Model.ProductsToAssigns[i].Id " type="hidden" value=" @Model.Products[i].Id" />
@@ -76,6 +78,9 @@
                                     }
                                 </tbody>
                             </table>
+                            <div>
+                                <input placeholder="Add a comment" class="form-control" type="text" value="@ViewBag.Comment" asp-for="Comment" />
+                            </div>
 
                             <h4 class="text-success">Supervisors</h4>
 
