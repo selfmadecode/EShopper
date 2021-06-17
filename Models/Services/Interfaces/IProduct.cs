@@ -10,7 +10,7 @@ namespace E_Shopper.Models.Services.Interfaces
 {
     public interface IProduct
     {
-        Task AddProduct(Product product);
+        Task<bool> AddProduct(Product product);
 
         Task<IList<Product>> AllProduct(string userId);
 

@@ -19,10 +19,12 @@ namespace E_Shopper.Models.Services.Repository
             _dbContext = dbContext;
         }
         //Get all products
-        public async Task AddProduct(Product product)
+        public async Task<bool> AddProduct(Product product)
         {
             _dbContext.Products.Add(product);
             await _dbContext.SaveChangesAsync();
+
+            return true;
         }
 
         public void CreateUser(ApplicationUser user, string role)

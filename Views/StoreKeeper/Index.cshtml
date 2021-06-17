@@ -2,7 +2,7 @@
 
 
 
-<div id ="contentPage" class="container-fluid">
+<div id="contentPage" class="container-fluid">
 
     <div class="row">
         <div class="col-12">
@@ -112,25 +112,26 @@
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
 
-
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/jquery-ajax-unobtrusive/jquery.unobtrusive-ajax.min.js"></script>
 
     <script>
         function completed(xhr) {
-            if (xhr.response == "success") {
-                window.location.reload();
-
-            } else if (xhr.response == null) {
+            
+            if (xhr.responseText != "Success") {
+                console.log(xhr.responseText);
 
                 var tableData = document.getElementById("contentPage");
                 tableData.innerHTML = xhr.responseText;
-            }
-        }
+            };
 
-        failed = function(xhr) {
-            alert(xhr.status + xhr.statusText);
-        };
+            if (xhr.responseJSON.responseText == "Success") {
+                window.location.reload();
+                return;
+            };
+            
+            
+        }
 
     </script>
 }

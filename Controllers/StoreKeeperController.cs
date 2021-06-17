@@ -54,9 +54,10 @@ namespace E_Shopper.Controllers
             {
                 return PartialView("Add", product);
             }
-            await _productRepo.AddProduct(product);
+           var result = await _productRepo.AddProduct(product);
 
-            return Json(new { response = "success" });
+            return Json(new { success = true, responseText = "Success"});
+
         }
         public async Task<IActionResult> AssignProductToSupervisor(AssignProductToSupervisor assignedProducts)
         {
@@ -80,7 +81,7 @@ namespace E_Shopper.Controllers
             if (!assignTo)
                 throw new Exception("Something went wrong");
 
-            return Json(new { response = "success" });
+            return Json(new { response = true, responseText = "Success" });
         }
     }
 }
