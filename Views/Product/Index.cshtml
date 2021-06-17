@@ -1,0 +1,21 @@
+﻿@model IEnumerable<ApprovedProductToSale>
+
+@if (!Model.Any())
+{
+    <h1>No Available Products</h1>
+}
+else
+{
+    foreach (var product in Model)
+    {
+        <div>
+            <img src="" alt="Img here" width="250" height="250" />
+            <h4>@product.Name</h4>
+            <p>@product.Amount</p>
+
+            <div>
+                <button class="text-success">Add to cart</button>
+            </div>
+        </div>
+    }
+}

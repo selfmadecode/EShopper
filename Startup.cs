@@ -44,6 +44,7 @@ namespace E_Shopper
 
             services.AddScoped<IProduct, ProductServices>();
             services.AddScoped<ICustomer, CustomerService>();
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
             services.AddControllersWithViews();
             //services.AddRazorPages();
