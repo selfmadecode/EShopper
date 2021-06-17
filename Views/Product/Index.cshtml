@@ -6,16 +6,18 @@
 }
 else
 {
-    foreach (var product in Model)
+<div>
+    @foreach (var product in Model)
     {
-        <div>
-            <img src="" alt="Img here" width="250" height="250" />
-            <h4>@product.Name</h4>
-            <p>@product.Amount</p>
+    <div>
+        <img src="" alt="Product Image" width="350" height="350" style="height: 350px" />
+        <h4>@product.Name</h4>
+        <p>Price: @product.Amount</p>
 
-            <div>
-                <button class="text-success">Add to cart</button>
-            </div>
+        <div>
+            <button class="btn btn-success">Add to cart</button>
         </div>
+    </div>
     }
+</div>
 }

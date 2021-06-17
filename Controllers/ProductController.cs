@@ -18,9 +18,10 @@ namespace E_Shopper.Controllers
             _productRepo = productRepo;
             _mapper = mapper;
         }
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var product = _mapper.Map<ApprovedProductToSale>(_productRepo.SellApprovedProducts());
+            var dbProduct = await _productRepo.SellApprovedProducts();
+            var product = _mapper.Map<IEnumerable<ApprovedProductToSale>>(dbProduct);
             return View(product);
         }
     }

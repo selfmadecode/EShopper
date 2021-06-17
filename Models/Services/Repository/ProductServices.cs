@@ -155,7 +155,7 @@ namespace E_Shopper.Models.Services.Repository
                     foreach (var product in products)
                     {
                         product.ProductStatus = ProductStatus.ProductManagerApproved;
-                        product.ProductManagerId = productManagerId;
+                        product.ProductManagerId = null;
                         product.Comment = comment;
 
                     }
