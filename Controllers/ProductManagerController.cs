@@ -3,6 +3,7 @@ using E_Shopper.Models.Entities;
 using E_Shopper.Models.Enums;
 using E_Shopper.Models.Services.Interfaces;
 using E_Shopper.Models.ViewModel;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -13,6 +14,7 @@ using System.Threading.Tasks;
 
 namespace E_Shopper.Controllers
 {
+    [Authorize]
     public class ProductManagerController : Controller
     {
         private readonly IProduct _productRepo;
