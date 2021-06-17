@@ -72,7 +72,7 @@
 
 
                             <div class="form-row">
-                                <div class="form-group col-md-6">
+                                <div id="acceptAndSendTo" class="form-group col-md-6">
                                     <i>Accept and Send to</i>
                                     @Html.DropDownListFor(s => s.SendToRole,
                                         new SelectList(Model.ProductManager, "Id", "FirstName"), "Select Product Manager", new { @class = "form-control ProductManagerDropDown" })
@@ -80,7 +80,7 @@
                                 </div>
 
 
-                                <div class="form-group col-md-6">
+                                <div id="reject" class="form-group col-md-6">
                                     <i>Rejecct and Send to</i>
                                     @Html.DropDownListFor(s => s.SendBackTo,
                                         new SelectList(Model.StoreKeeper, "Id", "FirstName"), "Select Store Keeper", new { @class = "form-control StoreKeeperDropdown" })
@@ -121,8 +121,6 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
-
-        //index 3 is banana
     });
 
     //function showDropDown() {
@@ -134,11 +132,14 @@
     //    switch (selectedDecision) {
 
     //        case "Reject":
-    //            //alert("Reject");
+    //            var reject = document.getElementById("Reject")
+    //                .style.display = ((reject.style.display != 'none') ? 'none' : 'block');
+
     //            break;
 
     //        case "Accept":
-    //           // alert("Accept");
+    //            var accept = document.getElementById("accept")
+    //                .style.display = ((accept.style.display != 'none') ? 'none' : 'block');
     //            break;
     //    }
     //}
